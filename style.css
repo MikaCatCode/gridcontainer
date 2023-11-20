@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+  line-height: 150%;
+  color: #f2f4ef;
+  background-color: #1b1d35;
+}
+
+:root {
+  --accent-color: #c63379;
+  --bg2: #252b43;
+
+  --container-width: 1000px;
+  --footnote-width: 1200px;
+  --container-padding: clamp(20px, 3.846vw, 30px);
+  --footnote-size: calc((var(--footnote-width) - var(--container-width)) / 2);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--container-padding), 1fr)
+    [footnote-start] minmax(0, var(--footnote-size))
+    [content-start] min(
+      100% - (var(--container-padding) * 2),
+      var(--container-width)
+    )
+    [content-end]
+    minmax(0, var(--footnote-size)) [footnote-end]
+    minmax(var(--container-padding), 1fr) [full-end];
+}
+
+.full {
+  display: grid;
+  grid-template-columns: inherit;
+  grid-column: full;
+}
+
+.grid-container > :not(.full, .footnote, .full-left, .full-right),
+.full > :not(.full, .footnote, .full-left, .full-right) {
+  grid-column: content;
+}
+
+.footnote {
+  grid-column: footnote;
+  background-color: var(--bg2);
+  padding: var(--container-padding);
+}
+
+.full-right {
+  grid-column: content-start / full-end;
+}
+.full-left {
+  grid-column: content-end / full-start;
+}
+
+.bg {
+  background-color: var(--accent-color);
+}
+h1 {
+  margin: 30px 0;
+  line-height: 130%;
+}
+p {
+  margin-bottom: 10px;
+}
+img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
